@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Навигационная панель с иконками</title>
+  <link type="text/css" href="{{ url_for('static', filename='css/styleMain.css') }}" rel="stylesheet">
+</head>
+<body>
+  <div class="content">
+    <div id="title">Главная</div>
+    <div id="title"> </div>
+
+  </div>
+  <footer class="navigation">
+    <div class="buts">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/products.png') }}" onclick="window.location.href='http://127.0.0.1:5000/products'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/main_act.png') }}" onclick="window.location.href='http://127.0.0.1:5000/main'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/calendar.png') }}" onclick="window.location.href='http://127.0.0.1:5000/calendar'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='http://127.0.0.1:5000/etc'">
+    </div>
+  </footer>
+  <div class="container">
+    <div class="card-stack">
+      <div class="card" id="card1">Яичница <img src="{{ url_for('static', filename='img/breakfast3.png') }}"></div>
+      <div class="card" id="card2">Каша с клубникой<img src="{{ url_for('static', filename='img/breakfast1.png') }}"></div>
+      <div class="card" id="card3">Сырники<img src="{{ url_for('static', filename='img/breakfast2.png') }}"></div>
+    </div>
+      <div class="card-stack ">
+        <div class="card1" id="card1">Куриный суп<img src="{{ url_for('static', filename='img/lunch1.png') }}"></div>
+        <div class="card1" id="card2">Чечевичный крем суп<img src="{{ url_for('static', filename='img/lunch2.png') }}"></div>
+        <div class="card1" id="card3">Курица с гречкой<img src="{{ url_for('static', filename='img/lunch3.png') }}"></div>
+      </div>
+      <div class="card-stack ">
+        <div class="card2" id="card1">Индейка с овощами<img src="{{ url_for('static', filename='img/dinner1.png') }}"></div>
+        <div class="card2" id="card2">Итальянское спагети<img src="{{ url_for('static', filename='img/dinner2.png') }}"></div>
+        <div class="card2" id="card3">Котлеты из куриного фарша<img src="{{ url_for('static', filename='img/dinner3.png') }}"></div>
+      </div>
+  </div>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>

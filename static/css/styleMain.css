@@ -1,0 +1,193 @@
+body
+{
+  margin: 0px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+}
+@font-face 
+{
+  font-family: 'Nunito ExtraBold';
+  src:
+      url("D:\ametCare1\fonts\Nunito-ExtraBold.woff2") format('woff2'),
+      url("D:\ametCare1\fonts\Nunito-ExtraBold.woff") format('woff');
+  font-family: 'Nunito Light';
+  src:
+          url("D:\ametCare1\fonts\Nunito-Light.woff2") format('woff2'),
+          url("D:\ametCare1\fonts\Nunito-Light.woff") format('woff');
+}
+.container 
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.back
+{
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+
+
+@media screen and (max-height: 720px) and (max-width: 360px) {
+  .center-container img {
+      max-width: 90%; /* Увеличьте размер изображения для мобильных устройств */
+  }
+}
+
+
+.navigation {
+  background-color: rgba(43, 198, 160, 1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top-left-radius: 20px; /* Закругление верхнего левого угла */
+  border-top-right-radius: 20px;  position: fixed;
+  bottom: 0px; /* Отступ от нижнего края */
+  left: 0;
+  right: 0;
+  height: 8%;
+}
+
+.buts
+{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#title
+{
+  color: rgba(43, 198, 160, 1);
+  font-size: 80px;
+  padding-top: 58px; 
+  padding-left: 58px;
+  font-family: 'Nunito ExtraBold';
+}
+
+
+
+
+
+input[type="image"] {
+  width: 8%;
+  height: 8%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="button"] 
+{
+  background-color: transparent; 
+  border: none; 
+  cursor: pointer;
+}
+
+
+
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 60px;
+
+}
+
+.card {
+  width: 800px;
+  height: 300px;
+  background-color: rgba(89, 197, 235);
+  color: rgb(255, 255, 255);
+  font-family: 'Nunito ExtraBold';
+  padding-top: 20px;
+  padding-left: 30px;;
+  font-size: 40px;
+  margin: 5px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  animation-duration: 0.5s;
+  border-radius: 50px;
+}
+
+.card1 {
+  width: 800px;
+  height: 300px;
+  background-color: rgba(43, 198, 160, 1);
+  color: rgb(255, 255, 255);
+  font-family: 'Nunito ExtraBold';
+  padding-top: 20px;
+  padding-left: 30px;;
+  font-size: 40px;
+  margin: 5px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  animation-duration: 0.5s;
+  border-radius: 50px;
+}
+.card2 {
+  width: 800px;
+  height: 300px;
+  background-color: rgba(49, 218, 117, 1);
+  color: rgb(255, 255, 255);
+  font-family: 'Nunito ExtraBold';
+  padding-top: 20px;
+  padding-left: 30px;;
+  font-size: 40px;
+  margin: 5px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  animation-duration: 0.5s;
+  border-radius: 50px;
+}
+.buttons 
+{
+  padding: 75px;
+  justify-content: center;
+  align-items: center;
+
+}
+.card img {
+  width: 200px; /* Установите желаемую ширину */
+  height: 200px; /* Установите желаемую высоту */
+  display: block; /* Помещаем изображение под текстом */
+  margin-top: 10px;
+}
+.card1 img {
+  width: 200px; /* Установите желаемую ширину */
+  height: 200px; /* Установите желаемую высоту */
+  display: block; /* Помещаем изображение под текстом */
+  margin-top: 10px;
+}
+.card2 img {
+  width: 200px; /* Установите желаемую ширину */
+  height: 200px; /* Установите желаемую высоту */
+  display: block; /* Помещаем изображение под текстом */
+  margin-top: 10px;
+}
+#card_text
+{
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  margin-bottom: 150px;
+  font-family: 'Nunito ExtraBold'; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Предотвращаем перекрытие текста и изображения */
+}
+.card-details {
+  /* Стили для контейнера с дополнительными данными (время приготовления и калорийность) */
+  display: flex; /* Включаем flexbox */
+  flex-direction: column; /* Устанавливаем направление столбца для текста */
+  justify-content: center; /* Выравниваем текст по центру вертикально */
+  margin-left: 10px; /* Добавляем отступ между изображением и текстом */
+}
+
