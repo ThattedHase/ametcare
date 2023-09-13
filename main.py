@@ -161,11 +161,11 @@ def userinfo():
     
     return render_template('userinfo.html')
 @app.route('/main')
-@cache.cached(timeout=60)  # Кэшировать представление на 60 секунд
+@cache.cached(timeout=60)  
 def main():
     return render_template('main.html')
 @app.route('/calendar')
-@cache.cached(timeout=60)  # Кэшировать представление на 60 секунд
+@cache.cached(timeout=60)  
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')

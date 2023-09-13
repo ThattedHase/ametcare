@@ -172,11 +172,10 @@ button[type="button"]
   display: block; /* Помещаем изображение под текстом */
   margin-top: 10px;
 }
-#card_text
+.card-title
 {
   color: rgb(255, 255, 255);
   font-size: 30px;
-  margin-bottom: 150px;
   font-family: 'Nunito ExtraBold'; 
   display: flex;
   flex-direction: column;
