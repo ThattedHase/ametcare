@@ -21,19 +21,16 @@
   <div class="container">
     <div class="card-stack">
       <div class="card1" id="card1">
-        <div id ="card-title">sdkfj</div>
-        <img src="{{ url_for('static', filename='img/lunch1.png') }}">
+        <div id ="card-title"> Яицница</div>
+        <div class = card-details>
+          <img src="{{ url_for('static', filename='img/lunch1.png') }}">
+          <div class=card-details-text>
+            <div class ="text-card-details">Пищевая ценность:</div>
+            <div class ="text-card-details">Время приготовления:</div>
+          </div>>
       </div>
     </div>
-      <div class="card-stack ">
-        <div class="card1" id="card1">
-          <div></div>
-          <img src="{{ url_for('static', filename='img/lunch1.png') }}">
-        </div>
-
-      <div class="card-stack ">
-
-      </div>
+ 
   </div>
   <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>

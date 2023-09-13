@@ -39,6 +39,8 @@ class Allergy(db.Model):
     allergy_name = db.Column(db.String(50))
 
 
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
