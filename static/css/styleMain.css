@@ -10,18 +10,20 @@ body
 {
   font-family: 'Nunito ExtraBold';
   src:
-      url("D:\ametCare1\fonts\Nunito-ExtraBold.woff2") format('woff2'),
-      url("D:\ametCare1\fonts\Nunito-ExtraBold.woff") format('woff');
-  
+      url("..\static\fonts\Nunito-ExtraBold.woff2") format('woff2'),
+      url("..\static\fonts\Nunito-ExtraBold.woff") format('woff');
 
-    font-family: 'Nunito Bold';
-    src:
-        url("D:\ametCare1\fonts\Nunito-Bold.woff2") format('woff2'),
-        url("D:\ametCare1\fonts\Nunito-Bold.woff") format('woff');
   font-family: 'Nunito Light';
   src:
-          url("D:\ametCare1\fonts\Nunito-Light.woff2") format('woff2'),
-          url("D:\ametCare1\fonts\Nunito-Light.woff") format('woff');
+        url("..\static\fonts\Nunito-Light.woff2") format('woff2'),
+        url("..\static\fonts\Nunito-Light.woff") format('woff');
+
+  font-family: 'Nunito Bold';
+  src:
+      url("..\static\fonts\Nunito-Bold.woff2") format('woff2'),
+      url("..\static\fonts\Nunito-Bold.woff") format('woff');
+
+
 }
 .container 
 {
