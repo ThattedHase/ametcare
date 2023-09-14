@@ -6,23 +6,27 @@ body
   flex-direction: column;
 
 }
+/* Подключение шрифтов */
 @font-face {
   font-family: 'Nunito ExtraBold';
-  src: url("../fonts/Nunito-ExtraBold.woff") format('woff2'),
-       url("../fonts/Nunito-ExtraBold.woff") format('woff');
+  src: url("/static/fonts/Nunito-ExtraBold.woff2") format('woff2'),
+       url("/static/fonts/Nunito-ExtraBold.woff") format('woff');
 }
 
 @font-face {
   font-family: 'Nunito Light';
-  src: url("../fonts/Nunito-Light.woff") format('woff2'),
-       url("../fonts/Nunito-Light.woff") format('woff');
+  src: url("/static/fonts/Nunito-Light.woff2") format('woff2'),
+       url("/static/fonts/Nunito-Light.woff") format('woff');
 }
 
 @font-face {
   font-family: 'Nunito Bold';
-  src: url("../fonts/Nunito-Bold.woff") format('woff2'),
-       url("../fonts/Nunito-Bold.woff") format('woff');
+  src: url("/static/fonts/Nunito-Bold.woff2") format('woff2'),
+       url("/static/fonts/Nunito-Bold.woff") format('woff');
 }
+
+/* Остальные стили элементов */
+
 
 .container 
 {
