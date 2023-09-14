@@ -10,20 +10,16 @@ body
 {
   font-family: 'Nunito ExtraBold';
   src:
-      url("D:/amet/ametcare1/static/fonts/Nunito-ExtraBold.woff") format('woff2'),
-      url("D:/amet/ametcare1/static/fonts/Nunito-ExtraBold.woff") format('woff');
-
+      url("static/fonts/Nunito-ExtraBold.woff") format('woff2'),
+      url("static/fonts/Nunito-ExtraBold.woff") format('woff');
   font-family: 'Nunito Light';
   src:
-        url("D:/amet/ametcare1/static/fonts/Nunito-Light.woff2") format('woff2'),
-        url("D:/amet/ametcare1/static/fonts/Nunito-Light.woff") format('woff');
-
+      url("static/fonts/Nunito-Light.woff") format('woff2'),
+      url("static/fonts/Nunito-Light.woff") format('woff');
   font-family: 'Nunito Bold';
   src:
-      url("D:/amet/ametcare1/static/fonts/Nunito-Bold.woff2") format('woff2'),
-      url("D:/amet/ametcare1/static/fonts/Nunito-Bold.woff") format('woff');
-
-
+        url("static/fonts/Nunito-Bold.woff") format('woff2'),
+        url("static/fonts/Nunito-Bold.woff") format('woff');
 }
 .container 
 {
@@ -163,7 +159,7 @@ button[type="button"]
 }
 .text-card-details
 {
-  font-family: 'Nunito Bold'; 
+  font-family: 'Nunito Light'; 
   padding-left: 10px;
   font-size:40px;
 }
