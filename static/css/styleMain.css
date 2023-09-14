@@ -6,21 +6,24 @@ body
   flex-direction: column;
 
 }
-@font-face 
-{
+@font-face {
   font-family: 'Nunito ExtraBold';
-  src:
-      url("/fonts/Nunito-ExtraBold.woff") format('woff2'),
-      url("static/fonts/Nunito-ExtraBold.woff") format('woff');
-  font-family: 'Nunito Light';
-  src:
-      url("/fonts/Nunito-Light.woff") format('woff2'),
-      url("/fonts/Nunito-Light.woff") format('woff');
-  font-family: 'Nunito Bold';
-  src:
-        url("../Nunito-Bold.woff") format('woff2'),
-        url("../Nunito-Bold.woff") format('woff');
+  src: url("../fonts/Nunito-ExtraBold.woff") format('woff2'),
+       url("../fonts/Nunito-ExtraBold.woff") format('woff');
 }
+
+@font-face {
+  font-family: 'Nunito Light';
+  src: url("../fonts/Nunito-Light.woff") format('woff2'),
+       url("../fonts/Nunito-Light.woff") format('woff');
+}
+
+@font-face {
+  font-family: 'Nunito Bold';
+  src: url("../fonts/Nunito-Bold.woff") format('woff2'),
+       url("../fonts/Nunito-Bold.woff") format('woff');
+}
+
 .container 
 {
   display: flex;

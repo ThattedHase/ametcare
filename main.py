@@ -163,19 +163,15 @@ def userinfo():
     
     return render_template('userinfo.html')
 @app.route('/main')
-@cache.cached(timeout=60)  
 def main():
     return render_template('main.html')
 @app.route('/calendar')
-@cache.cached(timeout=60)  
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
-@cache.cached(timeout=60)  # Кэшировать представление на 60 секунд
 def products():
     return render_template('products.html')
 @app.route('/etc')
-@cache.cached(timeout=60)  # Кэшировать представление на 60 секунд
 def etc():
     return render_template('etc.html')
 
