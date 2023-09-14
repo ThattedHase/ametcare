@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/nunito?styles=19286,19289,19279,19277');
 body
 {
   margin: 0px;
@@ -6,28 +7,6 @@ body
   flex-direction: column;
 
 }
-/* Подключение шрифтов */
-@font-face {
-  font-family: 'Nunito ExtraBold';
-  src: url("/static/fonts/Nunito-ExtraBold.woff2") format('woff2'),
-       url("/static/fonts/Nunito-ExtraBold.woff") format('woff');
-}
-
-@font-face {
-  font-family: 'Nunito Light';
-  src: url("/static/fonts/Nunito-Light.woff2") format('woff2'),
-       url("/static/fonts/Nunito-Light.woff") format('woff');
-}
-
-@font-face {
-  font-family: 'Nunito Bold';
-  src: url("/static/fonts/Nunito-Bold.woff2") format('woff2'),
-       url("/static/fonts/Nunito-Bold.woff") format('woff');
-}
-
-/* Остальные стили элементов */
-
-
 .container 
 {
   display: flex;
