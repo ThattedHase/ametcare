@@ -12,6 +12,12 @@ body
   src:
       url("D:\ametCare1\fonts\Nunito-ExtraBold.woff2") format('woff2'),
       url("D:\ametCare1\fonts\Nunito-ExtraBold.woff") format('woff');
+  
+
+    font-family: 'Nunito Bold';
+    src:
+        url("D:\ametCare1\fonts\Nunito-Bold.woff2") format('woff2'),
+        url("D:\ametCare1\fonts\Nunito-Bold.woff") format('woff');
   font-family: 'Nunito Light';
   src:
           url("D:\ametCare1\fonts\Nunito-Light.woff2") format('woff2'),
@@ -155,6 +161,7 @@ button[type="button"]
 }
 .text-card-details
 {
+  font-family: 'Nunito Bold'; 
   padding-left: 10px;
-  font-size:45px;
+  font-size:40px;
 }
