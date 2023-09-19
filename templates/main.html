@@ -21,18 +21,80 @@
   </footer>
   <div class="container">
     <div class="card-stack">
-      <div class="card1" id="card1">
-        <div id ="card-title"> Яицница</div>
-        <div class = card-details>
-          <img src="{{ url_for('static', filename='img/lunch1.png') }}">
-          <div class=card-details-text>
-            <div class ="text-card-details">Пищевая ценность: ккал</div>          
-            <div class ="text-card-details">Время приготовления: мин</div>
-          </div>
-      </div>
+        <div class="card1" id="card1">
+            <div id="card-title">Яицница</div>
+            <div class="card-details">
+                <img src="{{ url_for('static', filename='img/lunch1.png') }}">
+                <div class="card-details-text">
+                    <div class="text-card-details">Пищевая ценность: ккал</div>
+                    <div class="text-card-details">Время приготовления: мин</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Добавьте новую карточку ниже -->
+        <div class="card1" id="card2">
+            <div id="card-title">Новая карточка</div>
+            <div class="card-details">
+                <img src="{{ url_for('static', filename='img/new_card.png') }}">
+                <div class="card-details-text">
+                    <div class="text-card-details">Пищевая ценность: ккал</div>
+                    <div class="text-card-details">Время приготовления: мин</div>
+                </div>
+            </div>
+        </div>
+        <!-- Конец новой карточки -->
     </div>
- 
-  </div>
-  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-</body>
+</div>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script> <script>
+const cardStack = document.querySelector('.card-stack');
+const cards = document.querySelectorAll('.card1');
+let isSwiping = false;
+let startTouchX;
+let currentTranslateX = 0;
+let offsetX = 0;
+
+cards.forEach((card, index) => {
+    card.addEventListener('touchstart', (e) => {
+        isSwiping = true;
+        startTouchX = e.touches[0].clientX - cardStack.getBoundingClientRect().left;
+        offsetX = 0;
+    });
+
+    card.addEventListener('touchmove', (e) => {
+        if (!isSwiping) return;
+        const currentTouchX = e.touches[0].clientX - cardStack.getBoundingClientRect().left;
+        const translateX = currentTouchX - startTouchX + offsetX;
+
+        cards.forEach((c, i) => {
+            if (i < index) {
+                c.style.transform = `translateX(${translateX}px) translateY(${i * 20}px)`;
+            } else if (i > index) {
+                c.style.transform = `translateX(${translateX}px) translateY(${(i - 1) * 20}px)`;
+            }
+        });
+
+        currentTranslateX = translateX;
+    });
+
+    card.addEventListener('touchend', () => {
+        isSwiping = false;
+        offsetX = currentTranslateX;
+    });
+});
+
+cardStack.addEventListener('wheel', (e) => {
+    if (e.deltaY > 0) {
+        // Прокрутка вниз
+        offsetX += 20;
+    } else {
+        // Прокрутка вверх
+        offsetX -= 20;
+    }
+
+    cards.forEach((card, index) => {
+        card.style.transform = `translateX(${currentTranslateX}px) translateY(${index * 20 + offsetX}px)`;
+    });
+});
+</script></body>
 </html>
