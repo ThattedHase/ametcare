@@ -167,6 +167,7 @@ def userinfo():
     
     return render_template('userinfo.html')
 @app.route('/main')
+@login_required
 def main():
     return render_template('main.html')
 @app.route('/calendar')
@@ -174,9 +175,11 @@ def main():
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
+@login_required
 def products():
     return render_template('products.html')
 @app.route('/etc')
+@login_required
 def etc():
     return render_template('etc.html')
 
