@@ -2,21 +2,99 @@
 <html>
 <head>
   <title>Навигационная панель с иконками</title>
-  <link type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+  <link type="text/css" href="{{ url_for('static', filename='css/styleMain.css') }}" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/nunito?styles=19286,19289,19277" rel="stylesheet">
 </head>
 <body>
   <div class="content">
     <div id="title">Календарь планирования</div>
-  </div>
 
+
+  </div>
   <footer class="navigation">
     <div class="buts">
-      <input type="image" id = "nav_bat" src="{{ url_for('static', filename='img/products.png') }}" onclick="window.location.href='http://127.0.0.1:5000/products'">
-      <input type="image" id = "nav_bat" src="{{ url_for('static', filename='img/main.png') }}" onclick="window.location.href='http://127.0.0.1:5000/main'">
-      <input type="image" id = "nav_bat" src="{{ url_for('static', filename='img/calendar_act.png') }}" onclick="window.location.href='http://127.0.0.1:5000/calendar'">
-      <input type="image" id = "nav_bat" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='http://127.0.0.1:5000/etc'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/products.png') }}" onclick="window.location.href='http://127.0.0.1:5000/products'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/main.png') }}" onclick="window.location.href='http://127.0.0.1:5000/main'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/calendar_act.png') }}" onclick="window.location.href='http://127.0.0.1:5000/calendar'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='http://127.0.0.1:5000/etc'">
     </div>
   </footer>
+  <div class="container">
+    <div class="card-stack">
+        <div class="card1" id="card1">
+            <div id="card-title">Яицница</div>
+            <div class="card-details">
+                <img src="{{ url_for('static', filename='img/lunch1.png') }}">
+                <div class="card-details-text">
+                    <div class="text-card-details">Пищевая ценность: ккал</div>
+                    <div class="text-card-details">Время приготовления: мин</div>
+                </div>
+            </div>
+        </div>
 
-</body>
+        <!-- Добавьте новую карточку ниже -->
+        <div class="card1" id="card2">
+            <div id="card-title">Новая карточка</div>
+            <div class="card-details">
+                <img src="{{ url_for('static', filename='img/new_card.png') }}">
+                <div class="card-details-text">
+                    <div class="text-card-details">Пищевая ценность: ккал</div>
+                    <div class="text-card-details">Время приготовления: мин</div>
+                </div>
+            </div>
+        </div>
+        <!-- Конец новой карточки -->
+    </div>
+</div>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script> <script>
+const cardStack = document.querySelector('.card-stack');
+const cards = document.querySelectorAll('.card1');
+let isSwiping = false;
+let startTouchX;
+let currentTranslateX = 0;
+let offsetX = 0;
+
+cards.forEach((card, index) => {
+    card.addEventListener('touchstart', (e) => {
+        isSwiping = true;
+        startTouchX = e.touches[0].clientX - cardStack.getBoundingClientRect().left;
+        offsetX = 0;
+    });
+
+    card.addEventListener('touchmove', (e) => {
+        if (!isSwiping) return;
+        const currentTouchX = e.touches[0].clientX - cardStack.getBoundingClientRect().left;
+        const translateX = currentTouchX - startTouchX + offsetX;
+
+        cards.forEach((c, i) => {
+            if (i < index) {
+                c.style.transform = `translateX(${translateX}px) translateY(${i * 20}px)`;
+            } else if (i > index) {
+                c.style.transform = `translateX(${translateX}px) translateY(${(i - 1) * 20}px)`;
+            }
+        });
+
+        currentTranslateX = translateX;
+    });
+
+    card.addEventListener('touchend', () => {
+        isSwiping = false;
+        offsetX = currentTranslateX;
+    });
+});
+
+cardStack.addEventListener('wheel', (e) => {
+    if (e.deltaY > 0) {
+        // Прокрутка вниз
+        offsetX += 20;
+    } else {
+        // Прокрутка вверх
+        offsetX -= 20;
+    }
+
+    cards.forEach((card, index) => {
+        card.style.transform = `translateX(${currentTranslateX}px) translateY(${index * 20 + offsetX}px)`;
+    });
+});
+</script></body>
 </html>
