@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
 from flask_caching import Cache 
+from datetime import timedelta
+
 
 app = Flask(__name__)
 app.static_folder = 'static'
@@ -13,6 +15,8 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 cache = Cache(app)
+app.permanent_session_lifetime = timedelta(days=30)
+
 
 
 class User(db.Model, UserMixin):
@@ -166,6 +170,7 @@ def userinfo():
 def main():
     return render_template('main.html')
 @app.route('/calendar')
+@login_required
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
