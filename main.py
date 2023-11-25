@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, jsonify
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
-from flask_caching import Cache 
+from flask_caching import Cache
 from datetime import timedelta
-
 
 app = Flask(__name__)
 app.static_folder = 'static'
@@ -16,7 +15,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 cache = Cache(app)
 app.permanent_session_lifetime = timedelta(days=30)
-
+DATABASE = 'dish_data.db'
 
 
 class User(db.Model, UserMixin):
@@ -30,12 +29,13 @@ class User(db.Model, UserMixin):
     age = db.Column(db.Integer)
     goal = db.Column(db.String(20))
     preferences = db.relationship('Preference', backref='user', lazy=True)
-    #allergy=db.relationship('Allergy', backref='user', lazy=True)
+
 
 class Preference(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     preference_name = db.Column(db.String(50))
+
 
 class Allergy(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,6 +43,40 @@ class Allergy(db.Model):
     allergy_name = db.Column(db.String(50))
 
 
+class Dish(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    calories = db.Column(db.Float, nullable=False)
+    preparation_time = db.Column(db.Integer, nullable=False)
+    image = db.Column(db.String(255), nullable=True)
+
+
+def get_dishes(offset, limit):
+    return Dish.query.limit(limit).offset(offset).all()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+with app.app_context():
+    db.create_all()
+
+
+@app.route('/load_data/<int:offset>/<int:limit>')
+def load_data(offset, limit):
+    data = get_dishes(offset, limit)
+    dishes = [
+        {'title': dish.title, 'calories': dish.calories, 'preparation_time': dish.preparation_time, 'image': dish.image}
+        for dish in data
+    ]
+    return jsonify({'data': dishes})
+
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db.session.remove()
 
 
 @login_manager.user_loader
@@ -171,7 +205,6 @@ def userinfo():
 def main():
     return render_template('main.html')
 @app.route('/calendar')
-@login_required
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
