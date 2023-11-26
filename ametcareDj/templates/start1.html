@@ -1,0 +1,25 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>AmetCare</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+</head>
+<body>
+  <div class="container">
+    <img src="{% static 'img/main_logo.png' %}" class="center-image">
+    <p class="center-text">Виртуальная забота о вашем питании</p>
+</div>
+</body>
+<script>
+function redirectToSecondPage() {
+    setTimeout(function() {
+        window.location.href = "http://127.0.0.1:8000/start2";
+    }, 2000);
+}
+window.onload = redirectToSecondPage;
+</script>
+</html>
