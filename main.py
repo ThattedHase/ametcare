@@ -1,22 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, jsonify, redirect,url_for,flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_bcrypt import Bcrypt
-from flask_caching import Cache 
+from flask_caching import Cache
 from datetime import timedelta
-
 
 app = Flask(__name__)
 app.static_folder = 'static'
 app.config['SECRET_KEY'] = '93422'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+
 db = SQLAlchemy(app)
+
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 cache = Cache(app)
 app.permanent_session_lifetime = timedelta(days=30)
-
 
 
 class User(db.Model, UserMixin):
@@ -30,20 +30,18 @@ class User(db.Model, UserMixin):
     age = db.Column(db.Integer)
     goal = db.Column(db.String(20))
     preferences = db.relationship('Preference', backref='user', lazy=True)
-    #allergy=db.relationship('Allergy', backref='user', lazy=True)
+
 
 class Preference(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     preference_name = db.Column(db.String(50))
 
+
 class Allergy(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     allergy_name = db.Column(db.String(50))
-
-
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -90,12 +88,10 @@ def register():
 
         
         if not username or not password or not email:
-            flash('Both username and password are required!', 'error')
             return redirect(url_for('register'))
         
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            flash('Username already exists. Please choose a different username.', 'error')
             return redirect(url_for('register'))
         
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -168,7 +164,10 @@ def userinfo():
 def main():
     return render_template('main.html')
 @app.route('/calendar')
+<<<<<<< HEAD
 
+=======
+>>>>>>> a4cd6e2fb46a589928a8b1aa350b017447446ed0
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
