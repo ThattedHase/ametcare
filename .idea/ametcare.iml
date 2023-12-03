@@ -6,6 +6,9 @@
     </content>
 <<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 3.9 (venv)" jdkType="Python SDK" />
+=======
+    <orderEntry type="inheritedJdk" />
+>>>>>>> a4cd6e2fb46a589928a8b1aa350b017447446ed0
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
