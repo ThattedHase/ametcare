@@ -108,7 +108,6 @@ def register():
     return render_template('register.html')
 
 @app.route('/indpref', methods=['GET', 'POST'])
-@login_required
 def indpref():
     if request.method == 'POST':
         selected_preferences = request.form.getlist('preferences')
@@ -151,7 +150,6 @@ def login():
 
     
 @app.route('/userinfo', methods=['GET', 'POST'])
-@login_required
 def userinfo():
     if request.method == 'POST':
         current_user.gender = request.form.get('gender')
@@ -167,19 +165,16 @@ def userinfo():
     
     return render_template('userinfo.html')
 @app.route('/main')
-@login_required
 def main():
     return render_template('main.html')
 @app.route('/calendar')
-@login_required
+
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
-@login_required
 def products():
     return render_template('products.html')
 @app.route('/etc')
-@login_required
 def etc():
     return render_template('etc.html')
 
