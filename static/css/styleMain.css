@@ -81,18 +81,26 @@ button[type="button"]
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 50px;
+  height: 1200px;
 }
 .card
 {
   width: 100%;
-  height: 25%;
+  height: 50%;
   background: rgb(227, 227, 227);
   font-family: 'Nunito ExtraBold'; 
+  font-size: 50px;
+  color: rgb(43,198,160);
   display: flex;
   justify-content: left;
-  margin-left: 30px;
-
+  text-align: left;
+  margin: 30px;
+  padding-left: 25px;
+  padding-top: 130px;
+  border-radius: 80px;
+  text-decoration: none;
 }
 
 .buttons 
