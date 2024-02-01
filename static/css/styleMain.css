@@ -48,7 +48,7 @@ body
   align-items: center;
 }
 
-#title
+.title
 {
   color: rgba(43, 198, 160, 1);
   font-size: 80px;
@@ -56,9 +56,6 @@ body
   padding-left: 58px;
   font-family: 'Nunito ExtraBold';
 }
-
-
-
 
 
 input[type="image"] {
@@ -79,30 +76,24 @@ button[type="button"]
 }
 
 
-
-.card-stack {
+.cardStack
+{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 60px;
-
-}
-
-.card1 {
-  width: 900px;
-  background-color: rgba(89, 197, 235);
-  color: rgb(255, 255, 255);
-  font-family: 'Nunito ExtraBold';
-  padding-top: 20px;
-  margin: 5px;
-  display: none;
   justify-content: center;
   align-items: center;
-  animation-duration: 0.5s;
-  border-radius: 50px;
+  padding: 50px;
 }
+.card
+{
+  width: 100%;
+  height: 25%;
+  background: rgb(227, 227, 227);
+  font-family: 'Nunito ExtraBold'; 
+  display: flex;
+  justify-content: left;
+  margin-left: 30px;
 
-
+}
 
 .buttons 
 {
@@ -110,42 +101,4 @@ button[type="button"]
   justify-content: center;
   align-items: center;
 
-}
-.card-stack img {
-  width: 200px; /* Установите желаемую ширину */
-  height: 200px; /* Установите желаемую высоту */
-  display: block; /* Помещаем изображение под текстом */
-  margin-top: 10px;
-  margin-left: 30px;
-  margin-bottom: 30px;
-
-}
-
-#card-title
-{
-  color: rgb(255, 255, 255);
-  font-size: 50px;
-  font-family: 'Nunito ExtraBold'; 
-  display: flex;
-  justify-content: left;
-  margin-left: 30px;
-
-}
-.card-details 
-{
-  display: flex; 
-  flex-direction: row; 
-}
-.card-details-text
-{
-  margin-top: 40px;
-  display: flex; 
-  flex-direction: column; 
-
-}
-.text-card-details
-{
-  font-family: 'Nunito SemiBold';
-  padding-left: 10px;
-  font-size:40px;
 }

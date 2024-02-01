@@ -163,6 +163,7 @@ def userinfo():
 @app.route('/main')
 def main():
     return render_template('main.html')
+@app.route('/calendar')
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
