@@ -172,6 +172,9 @@ def products():
 @app.route('/etc')
 def etc():
     return render_template('etc.html')
+@app.route('/choosedish')
+def choosedish():
+    return render_template('choosedish.html')
 
 
 

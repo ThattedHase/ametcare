@@ -18,60 +18,11 @@
     </div>
   </footer>
   <div class="cardStack">
-    <a href = "http://127.0.0.1:5000/products" class="card">Нажмите, чтобы выбрать завтрак</a>
+    <a href = "http://127.0.0.1:5000/choosedish" class="card">Нажмите, чтобы выбрать завтрак</a>
     <div class="card">Нажмите, чтобы выбрать завтрак</div>
     <div class="card">Нажмите, чтобы выбрать завтрак</div>
 
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const cardStack = document.getElementById('cardStack');
-        let loadedCount = 0;
-        const limit = 2;  // Количество карточек, загружаемых за раз
-
-        function loadMoreData() {
-            // AJAX-запрос для загрузки дополнительных данных
-            fetch(`/load_data/${loadedCount}/${limit}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.data.length > 0) {
-                        loadedCount += data.data.length;
-                        appendDataToCards(data.data);
-                    }
-                })
-                .catch(error => console.error('Error loading data:', error));
-        }
-
-        function appendDataToCards(newData) {
-            newData.forEach(item => {
-                const newCard = document.createElement('div');
-                newCard.className = 'card1';
-                // Создайте структуру карточки с использованием данных из базы данных
-                newCard.innerHTML = `
-                    <div id="card-title">${item.title}</div>
-                    <div class="card-details">
-                        <img src="${item.image}">
-                        <div class="card-details-text">
-                            <div class="text-card-details">Пищевая ценность: ${item.calories} ккал</div>
-                            <div class="text-card-details">Время приготовления: ${item.preparation_time} мин</div>
-                        </div>
-                    </div>
-                `;
-                cardStack.appendChild(newCard);
-            });
-        }
-
-        // Загрузка дополнительных данных при прокрутке
-        cardStack.addEventListener('scroll', function () {
-            if (cardStack.scrollHeight - cardStack.scrollTop <= cardStack.clientHeight + 100) {
-                loadMoreData();
-            }
-        });
-
-        // Загрузка первой партии данных
-        loadMoreData();
-    });
-</script>
     </body>
 </html>
