@@ -172,9 +172,15 @@ def products():
 @app.route('/etc')
 def etc():
     return render_template('etc.html')
-@app.route('/choosedish')
-def choosedish():
-    return render_template('choosedish.html')
+@app.route('/breakfast')
+def breakfast():
+    return render_template('breakfast.html')
+@app.route('/lunch')
+def lunch():
+    return render_template('lunch.html')
+@app.route('/dinner')
+def dinner():
+    return render_template('dinner.html')
 
 
 
