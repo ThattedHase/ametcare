@@ -26,8 +26,13 @@
         <button class = "mainbut" onclick="showFavoriteProducts()">Избранные</button>
     </div>
     <div id="allProducts">
-        <h2>Все товары</h2>
-        <!-- Здесь выводите все товары -->
+      <div class = "scrollable-container">
+        <div class = "card1">
+          <p>Яичница</p>
+          <img src="{{ url_for('static', filename='img/plus.png') }}" >
+          <button class = "star" onclick="changeBackground()" type="button"></button> 
+        </div>
+      </div>
     </div>
 
     <div id="favoriteProducts" style="display:none;">
@@ -51,6 +56,11 @@
             document.getElementById('favoriteProducts').style.display = 'block';
             document.querySelector('.list_but .active').classList.remove('active');
             event.target.classList.add('active');
+        }
+        function changeBackground() 
+        {
+            var starButton = document.querySelector('.star');
+            starButton.classList.toggle('clicked');
         }
 </script>
     </body>
