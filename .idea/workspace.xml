@@ -5,8 +5,59 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fcf9025e-df0b-4e98-9e36-58ea80289366" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/instance/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/instance/users.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/ametcareDj/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/ametcareDj/asgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/ametcareDj/settings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/ametcareDj/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/ametcareDj/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/firstapp/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/firstapp/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/firstapp/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/firstapp/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/firstapp/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/firstapp/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/firstapp/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/css/stylecopy.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/css/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/arrback.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/breakfast1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/breakfast2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/breakfast3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/calendar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/calendar_act.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/closedE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/dinner1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/login.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/lunch1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/lunch2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/lunch3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/main.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/main_act.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/main_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/next.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/no.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/products.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/products_act.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/register.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/signin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/turn.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/img/yes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/static/js/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/allergy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/allergy.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/calendar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/choose.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/etc.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/indpref.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/main.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/products.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/start1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/start2.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ametcareDj/templates/userinfo.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,13 +75,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ДНС/Documents/GitHub/ametcare&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/ametcareDj"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
