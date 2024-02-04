@@ -163,11 +163,6 @@ def userinfo():
 @app.route('/main')
 def main():
     return render_template('main.html')
-@app.route('/calendar')
-<<<<<<< HEAD
-
-=======
->>>>>>> a4cd6e2fb46a589928a8b1aa350b017447446ed0
 def calendar():
     return render_template('calendar.html')
 @app.route('/products')
