@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
 @keyframes fadeIn 
 {
   from {
@@ -40,19 +42,13 @@ body
 
   
 
-@font-face 
-{
-  font-family: 'Nunito ExtraBold';
-  src:
-      url("/Users/vizilo/Downloads/ametCare1/fonts/Nunito-ExtraBold.woff2") format('woff2'),
-      url("/Users/vizilo/Downloads/ametCare1/fonts/Nunito-ExtraBold.woff") format('woff');
-}
 #title
 {
   color: rgba(43, 198, 160, 1);
   font-size: 40px; 
   width: 816px;
-  font-family: 'Nunito ExtraBold';
+  font-family: 'Nunito';
+  font-weight: 900;
   margin-bottom: 300px;
 }
 

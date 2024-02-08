@@ -3,13 +3,10 @@
 <head>
   <title>Навигационная панель с иконками</title>
   <link type="text/css" href="{{ url_for('static', filename='css/styleMain.css') }}" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/nunito?styles=19286,19289,19277" rel="stylesheet">
 </head>
 <body>
-  <div class="content">
+  <div class="maincontent">
     <div class="title">Главная</div>
-
-
   </div>
   <footer class="navigation">
     <div class="buts">
@@ -19,6 +16,9 @@
       <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='http://127.0.0.1:5000/etc'">
     </div>
   </footer>
-  {{user.daily_cal}}
+  <div class="cardStack">
+    <div class ="card light_blue">Ваша суточная норма калорий: {{user.daily_cal}} ккал</div>
+    <div class ="card dark_blue">{{user.daily_cal}}</div>
+  </div>
   </body>
 </html>
