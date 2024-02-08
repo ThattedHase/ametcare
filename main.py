@@ -29,6 +29,8 @@ class User(db.Model, UserMixin):
     height = db.Column(db.Float)
     age = db.Column(db.Integer)
     goal = db.Column(db.String(20))
+    phy_act = db.Column(db.Float)
+    daily_cal = db.Column(db.Float)
     preferences = db.relationship('Preference', backref='user', lazy=True)
 
 
@@ -98,12 +100,15 @@ def register():
         new_user = User(username=username, password=hashed_password,email = email)
         db.session.add(new_user)
         db.session.commit()
+        login_user(new_user)
+
         
         return redirect(url_for('userinfo'))
     
     return render_template('register.html')
 
 @app.route('/indpref', methods=['GET', 'POST'])
+@login_required 
 def indpref():
     if request.method == 'POST':
         selected_preferences = request.form.getlist('preferences')
@@ -143,10 +148,30 @@ def login():
     
     return render_template('login.html')
 
+def calulate_daily_cal(gender,weight,height,age,phy_act,goal):
+    daily_cal = 0
+    if gender == "male":
+        daily_cal+=(10*weight+6.25*height-5*age+5)*float(phy_act)
+        if goal == "lose_weight":
+            k = daily_cal*0,1
+            daily_cal = daily_cal-k
+        elif goal == "gain_weight":
+            k = daily_cal*0,1
+            daily_cal = daily_cal+k
 
+    elif current_user.gender == "female":
+        daily_cal+=(weight+6.25*height-5*age-161)*float(phy_act)
+        if goal == "lose_weight":
+            k = daily_cal*0,1
+            daily_cal = daily_cal-k
+        elif goal == "gain_weight":
+            k = daily_cal*0,1
+            daily_cal = daily_cal+k
+    return daily_cal
     
 @app.route('/userinfo', methods=['GET', 'POST'])
 def userinfo():
+
     if request.method == 'POST':
         current_user.gender = request.form.get('gender')
         current_user.weight = float(request.form.get('weight'))
@@ -155,14 +180,21 @@ def userinfo():
         current_user.last_name = request.form.get('last_name')
         current_user.age = int(request.form.get('age'))
         current_user.goal = request.form.get('goal')
+        current_user.phy_act = float(request.form.get('phy_act'))
+        current_user.daily_cal = calulate_daily_cal(str(current_user.gender), current_user.weight,current_user.height,current_user.age,current_user.phy_act, current_user.goal)
+        print(current_user.daily_cal)
         db.session.commit()
+        
+
+
         flash('User information saved.', 'success')
         return redirect(url_for('indpref'))
     
     return render_template('userinfo.html')
 @app.route('/main')
 def main():
-    return render_template('main.html')
+    user = User.query.get(current_user.id)
+    return render_template('main.html',user=user)
 @app.route('/calendar')
 def calendar():
     return render_template('calendar.html')
