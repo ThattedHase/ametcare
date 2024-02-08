@@ -4,6 +4,8 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask_bcrypt import Bcrypt
 from flask_caching import Cache
 from datetime import timedelta
+from flask import Flask, render_template, request, jsonify, session
+
 
 app = Flask(__name__)
 app.static_folder = 'static'
