@@ -31,6 +31,7 @@ class User(db.Model, UserMixin):
     goal = db.Column(db.String(20))
     phy_act = db.Column(db.Float)
     daily_cal = db.Column(db.Float)
+    daily_water = db.Column(db.Float)
     preferences = db.relationship('Preference', backref='user', lazy=True)
 
 
@@ -168,6 +169,14 @@ def calulate_daily_cal(gender,weight,height,age,phy_act,goal):
             k = daily_cal*0,1
             daily_cal = daily_cal+k
     return daily_cal
+
+def calulate_daily_water(gender,weight):
+    daily_water = 0
+    if gender == "male":
+        daily_water += weight*4/100+6/100
+    elif gender == "female":
+        daily_water += weight*3/100+4/100
+    return daily_water
     
 @app.route('/userinfo', methods=['GET', 'POST'])
 def userinfo():
@@ -182,7 +191,7 @@ def userinfo():
         current_user.goal = request.form.get('goal')
         current_user.phy_act = float(request.form.get('phy_act'))
         current_user.daily_cal = calulate_daily_cal(str(current_user.gender), current_user.weight,current_user.height,current_user.age,current_user.phy_act, current_user.goal)
-        print(current_user.daily_cal)
+        current_user.daily_water = calulate_daily_water(str(current_user.gender),current_user.weight)
         db.session.commit()
         
 
@@ -191,10 +200,13 @@ def userinfo():
         return redirect(url_for('indpref'))
     
     return render_template('userinfo.html')
-@app.route('/main')
+@app.route('/main', methods=['GET'])
 def main():
     user = User.query.get(current_user.id)
-    return render_template('main.html',user=user)
+    daily_water = int(user.daily_water/0.25)
+    return render_template('main.html',user=user,daily_water=daily_water)
+
+
 @app.route('/calendar')
 def calendar():
     return render_template('calendar.html')

@@ -142,14 +142,36 @@ button[type="button"]
 }
 .dark_blue
 {
+  width: 90%;
   height: 20%;
-  background-color: rgb(56,96,226);
-  color:white;
+  font-family: 'Nunito';
   font-weight: 500;
+  font-size: 50px;
+  background-color: rgb(56,96,226);
+  color: rgb(255, 255, 255);
+  border: none;
+  display: flex;
+  padding: 50px;
+  border-radius: 60px;
+  text-decoration: none;
+  flex-direction: row;
+  align-items: center; 
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+  margin: 30px;
 }
 .light_blue
 {
+  font-family: 'Nunito';
+  font-weight: 500;
+  font-size: 50px;
+  margin: 30px;
+  border-radius: 60px;
+  width: 90%;
   height: 20%;
+  flex-direction: row;
+  padding: 50px;
   color: white;
   font-weight: 500;
   background-color: rgb(89, 197, 235);
@@ -219,4 +241,16 @@ button[type="button"]
 
 .star.clicked {
   background-image: url('/static/img/star2.png'); /* Измененное изображение после нажатия */
+}
+
+.glass
+{
+  background-image: url('/static/img/glass1.png');
+  background-size: cover;
+  width: 80px;
+  height: 100px;
+  background-color: transparent; 
+  border: none; 
+  cursor: pointer;
+  margin: 5px;
 }
