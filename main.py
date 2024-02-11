@@ -226,9 +226,7 @@ def userinfo():
 @app.route('/main', methods=['GET'])
 def main():
     user = User.query.get(current_user.id)
-    daily_water = round(user.daily_water/0.25)
-
-
+    daily_water = int(user.daily_water/0.25)
     return render_template('main.html',user=user,daily_water=daily_water)
 
 
