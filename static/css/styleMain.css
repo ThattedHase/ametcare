@@ -117,29 +117,6 @@ button[type="button"]
   text-decoration: none;
 }
 
-.card1
-{
-  width: 90%;
-  height: 50px;
-  background: none;
-  padding-left: 58px;
-  font-family: 'Nunito';
-  font-weight: 500;
-  font-size: 50px;
-  color: rgba(89, 197, 235);
-  border: rgba(227, 227, 227) solid 5px;
-  display: flex;
-  margin: 30px;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  border-radius: 60px;
-  text-decoration: none;
-  flex-direction: row;
-  align-items: center; 
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: space-evenly;
-}
 .dark_blue
 {
   width: 90%;
@@ -160,6 +137,46 @@ button[type="button"]
   align-content: center;
   justify-content: flex-start;
   margin: 30px;
+}
+
+#allProducts,
+#favoriteProducts
+{
+  display: flex;
+  align-items: center;
+}
+.card1 {
+  width: 90%;
+  min-height: 50px;
+  background: none;
+  padding-left: 10px;
+  font-family: 'Nunito';
+  font-weight: 500;
+  font-size: 16px;
+  color: rgba(89, 197, 235);
+  border: rgba(227, 227, 227) solid 5px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.card1 img 
+{
+  width: 100px;
+  height: auto;
+  align-self: flex-end;
+}
+
+.card1 p {
+  margin: 0;
+  flex-wrap: wrap;
+  overflow: hidden;
+  font-size: 60px;
+  flex: 1; /* Allow the text to take up the available space and shrink if needed */
 }
 .light_blue
 {
@@ -216,16 +233,9 @@ button[type="button"]
   flex-direction: row;
 }
 
-.card1 img
-{
-  width: 100px; /* Изображение займет 100% ширины родительского контейнера */
-  height: auto;
-}
 
-.card1 p {
-  font-size: 60px;
 
-}
+
 .scrollable-container {
   height: 1500px;  
   width: 100%;
