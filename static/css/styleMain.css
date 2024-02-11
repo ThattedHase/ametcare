@@ -168,6 +168,7 @@ button[type="button"]
   flex-wrap: wrap;
   align-content: center;
   justify-content: space-evenly;
+  flex: 1;
 }
 
 
@@ -175,16 +176,30 @@ button[type="button"]
 {
   width: 100px;
   height: auto;
-  align-self: flex-end;
+  margin: 10px;
 }
 
 .card1 p {
+  display: flex;
+  flex-direction: column;
   width: 70%;
-  margin: 0;
   flex-wrap: wrap;
   overflow: hidden;
   font-size: 60px;
   flex: 1; /* Allow the text to take up the available space and shrink if needed */
+}
+.star
+{
+  background-image: url('/static/img/star1.png');
+  background-size: cover;
+  width: 105px;
+  height: 105px;
+  margin-left: 0;
+
+}
+
+.star.clicked {
+  background-image: url('/static/img/star2.png'); /* Измененное изображение после нажатия */
 }
 .light_blue
 {
@@ -249,19 +264,7 @@ button[type="button"]
   width: 100%;
   overflow-y: scroll; 
 }
-.star
-{
-  background-image: url('/static/img/star1.png');
-  background-size: cover;
-  width: 105px;
-  height: 105px;
-  margin-left: 0;
 
-}
-
-.star.clicked {
-  background-image: url('/static/img/star2.png'); /* Измененное изображение после нажатия */
-}
 
 .glass
 {
