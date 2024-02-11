@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_caching import Cache
 from datetime import timedelta
 from flask import Flask, render_template, request, jsonify, session
+from amet_new_program import recommend_dish
 
 
 app = Flask(__name__)
@@ -33,8 +34,13 @@ class User(db.Model, UserMixin):
     goal = db.Column(db.String(20))
     phy_act = db.Column(db.Float)
     daily_cal = db.Column(db.Float)
+    daily_carbs = db.Column(db.Integer)
+    daily_fats = db.Column(db.Integer)
+    daily_proteins = db.Column(db.Integer)
     daily_water = db.Column(db.Float)
     preferences = db.relationship('Preference', backref='user', lazy=True)
+    allergies = db.relationship('Allergy', backref='user', lazy=True)
+
 
 
 class Preference(db.Model):
@@ -125,6 +131,7 @@ def indpref():
             current_user.preferences.append(preference)
 
         db.session.commit()
+
         flash('Preferences saved.', 'success')
         return redirect(url_for('choose'))
 
@@ -151,34 +158,47 @@ def login():
     
     return render_template('login.html')
 
-def calulate_daily_cal(gender,weight,height,age,phy_act,goal):
+def calculate_daily_cal(gender, weight, height, age, phy_act, goal):
     daily_cal = 0
     if gender == "male":
-        daily_cal+=(10*weight+6.25*height-5*age+5)*float(phy_act)
-        if goal == "lose_weight":
-            k = daily_cal*0,1
-            daily_cal = daily_cal-k
-        elif goal == "gain_weight":
-            k = daily_cal*0,1
-            daily_cal = daily_cal+k
-
-    elif current_user.gender == "female":
-        daily_cal+=(weight+6.25*height-5*age-161)*float(phy_act)
-        if goal == "lose_weight":
-            k = daily_cal*0,1
-            daily_cal = daily_cal-k
-        elif goal == "gain_weight":
-            k = daily_cal*0,1
-            daily_cal = daily_cal+k
+        daily_cal += (10 * weight + 6.25 * height - 5 * age + 5) * float(phy_act)
+    elif gender == "female":
+        daily_cal += (10*weight + 6.25 * height - 5 * age - 161) * float(phy_act)
+    if goal == "lose_weight":
+        k = daily_cal * 0.1
+        daily_cal -= k
+    elif goal == "gain_weight":
+        k = daily_cal * 0.1
+        daily_cal += k
     return daily_cal
 
-def calulate_daily_water(gender,weight):
+
+def calculate_daily_water(gender, weight):
     daily_water = 0
     if gender == "male":
-        daily_water += weight*4/100+6/100
+        daily_water = weight * 0.035
     elif gender == "female":
-        daily_water += weight*3/100+4/100
+        daily_water = weight * 0.031
     return daily_water
+
+def calculate_ptc(goal,daily_calories):
+    daily_carbs = 0
+    daily_proteins = 0
+    daily_fats = 0
+    if goal=='lose_weight':
+        daily_carbs += round(daily_calories/(2*4.1),0)
+        daily_proteins += round(daily_calories/(4*4.1),0)
+        daily_fats += round(daily_calories/(4*9.3),0)
+    elif goal=='gain_weight':
+        daily_carbs += round(((daily_calories*0.45)/4.1),0)
+        daily_proteins += round(((daily_calories*0.3)/4.1),0)
+        daily_fats += round(daily_calories/(4*9.3),0)
+    else:
+        daily_carbs += round(((daily_calories*0.5)/4.1),0)
+        daily_proteins += round(((daily_calories*0.25)/4.1),0)
+        daily_fats += round(daily_calories/(4*9.3),0)
+    return daily_carbs, daily_proteins, daily_fats
+
     
 @app.route('/userinfo', methods=['GET', 'POST'])
 def userinfo():
@@ -192,8 +212,9 @@ def userinfo():
         current_user.age = int(request.form.get('age'))
         current_user.goal = request.form.get('goal')
         current_user.phy_act = float(request.form.get('phy_act'))
-        current_user.daily_cal = calulate_daily_cal(str(current_user.gender), current_user.weight,current_user.height,current_user.age,current_user.phy_act, current_user.goal)
-        current_user.daily_water = calulate_daily_water(str(current_user.gender),current_user.weight)
+        current_user.daily_cal = calculate_daily_cal(str(current_user.gender), current_user.weight,current_user.height,current_user.age,current_user.phy_act, current_user.goal)
+        current_user.daily_carbs, current_user.daily_proteins, current_user.daily_fats = calculate_ptc(current_user.goal,current_user.daily_cal)
+        current_user.daily_water = calculate_daily_water(str(current_user.gender),current_user.weight)
         db.session.commit()
         
 
@@ -205,7 +226,14 @@ def userinfo():
 @app.route('/main', methods=['GET'])
 def main():
     user = User.query.get(current_user.id)
-    daily_water = int(user.daily_water/0.25)
+    daily_water = round(user.daily_water/0.25)
+    user_preference_names = [pref.preference_name for pref in current_user.preferences]
+    user_allergies = [pref.allergy_name for pref in current_user.allergies]
+
+    print(user_preference_names)
+    print(user_allergies)
+
+
     return render_template('main.html',user=user,daily_water=daily_water)
 
 
