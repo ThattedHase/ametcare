@@ -120,9 +120,8 @@ button[type="button"]
 .card1
 {
   width: 90%;
-  height: 50px;
+  height: auto;
   background: none;
-  padding-left: 58px;
   font-family: 'Nunito';
   font-weight: 500;
   font-size: 50px;
@@ -130,8 +129,7 @@ button[type="button"]
   border: rgba(227, 227, 227) solid 5px;
   display: flex;
   margin: 30px;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding: 25px;
   border-radius: 60px;
   text-decoration: none;
   flex-direction: row;
@@ -216,10 +214,20 @@ button[type="button"]
   flex-direction: row;
 }
 
+.card1 p
+{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  display:flex;
+  height: auto;
+}
+
 .card1 img
 {
   width: 100px; /* Изображение займет 100% ширины родительского контейнера */
   height: auto;
+  margin-left: 0;
 }
 
 .card1 p {
@@ -237,6 +245,8 @@ button[type="button"]
   background-size: cover;
   width: 105px;
   height: 105px;
+  margin-left: 0;
+
 }
 
 .star.clicked {

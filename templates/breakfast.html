@@ -27,8 +27,8 @@
     <div id="allProducts">
       <div class = "scrollable-container">
         {% for t in range(l) %}     
-          <div class = "card1">
-            <p>P{{table["Dish Name"].iloc[t]}}</p>
+        <div class="card1" onclick="showDishDescription('{{ table["Dish Name"].iloc[t] }}')">
+            <p>{{table["Dish Name"].iloc[t]}}</p>
             <img src="{{ url_for('static', filename='img/plus.png') }}" >
             <button class = "star" onclick="changeBackground()" type="button"></button> 
           </div>
@@ -63,6 +63,10 @@
             var starButton = document.querySelector('.star');
             starButton.classList.toggle('clicked');
         }
+        function showDishDescription(dishName) {
+    // Переход на страницу с описанием блюда
+          window.location.href = "/dish_description?name=" + encodeURIComponent(dishName);
+      }
 </script>
     </body>
 </html>
