@@ -27,7 +27,7 @@
     <div id="allProducts">
       <div class = "scrollable-container">
         {% for t in range(l) %}     
-        <div class="card1" onclick="showDishDescription('{{ table["Dish Name"].iloc[t] }}')">
+          <div class = "card1">
             <p>{{table["Dish Name"].iloc[t]}}</p>
             <img src="{{ url_for('static', filename='img/plus.png') }}" >
             <button class = "star" onclick="changeBackground()" type="button"></button> 

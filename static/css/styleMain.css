@@ -117,6 +117,37 @@ button[type="button"]
   text-decoration: none;
 }
 
+
+
+
+.dark_blue
+{
+  width: 90%;
+  height: 20%;
+  font-family: 'Nunito';
+  font-weight: 500;
+  font-size: 50px;
+  background-color: rgb(56,96,226);
+  color: rgb(255, 255, 255);
+  border: none;
+  display: flex;
+  padding: 50px;
+  border-radius: 60px;
+  text-decoration: none;
+  flex-direction: row;
+  align-items: center; 
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+  margin: 30px;
+}
+
+#allProducts,
+#favoriteProducts
+{
+  display: flex;
+  align-items: center;
+}
 .card1
 {
   width: 90%;
@@ -138,26 +169,22 @@ button[type="button"]
   align-content: center;
   justify-content: space-evenly;
 }
-.dark_blue
+
+
+.card1 img 
 {
-  width: 90%;
-  height: 20%;
-  font-family: 'Nunito';
-  font-weight: 500;
-  font-size: 50px;
-  background-color: rgb(56,96,226);
-  color: rgb(255, 255, 255);
-  border: none;
-  display: flex;
-  padding: 50px;
-  border-radius: 60px;
-  text-decoration: none;
-  flex-direction: row;
-  align-items: center; 
+  width: 100px;
+  height: auto;
+  align-self: flex-end;
+}
+
+.card1 p {
+  width: 70%;
+  margin: 0;
   flex-wrap: wrap;
-  align-content: center;
-  justify-content: flex-start;
-  margin: 30px;
+  overflow: hidden;
+  font-size: 60px;
+  flex: 1; /* Allow the text to take up the available space and shrink if needed */
 }
 .light_blue
 {
@@ -214,26 +241,9 @@ button[type="button"]
   flex-direction: row;
 }
 
-.card1 p
-{
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  display:flex;
-  height: auto;
-}
 
-.card1 img
-{
-  width: 100px; /* Изображение займет 100% ширины родительского контейнера */
-  height: auto;
-  margin-left: 0;
-}
 
-.card1 p {
-  font-size: 60px;
 
-}
 .scrollable-container {
   height: 1500px;  
   width: 100%;
