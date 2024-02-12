@@ -17,9 +17,63 @@
         </div>
       </footer>
       <div class="cardStack">
-        <a href = "http://127.0.0.1:5000/breakfast" class="card">Нажмите, чтобы выбрать завтрак</a>
+        <a id="breakfastLink" class="card" href="http://127.0.0.1:5000/breakfast" onclick="showDishDescription(event)">
+          {% if df is not none and not df.empty %}
+            <div class="selected-dish-card">{{ df["Dish Name"].iloc[0] }}</div>
+          {% else %}
+            Нажмите, чтобы выбрать завтрак
+          {% endif %}
+        </a>
+
         <a href = "http://127.0.0.1:5000/lunch" class="card">Нажмите, чтобы выбрать обед</a>
         <a href = "http://127.0.0.1:5000/dinner" class="card">Нажмите, чтобы выбрать ужин</a>
+
+        
       </div>
+      <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRecipeModal()">      
+              <img src="{{ url_for('static', filename='img/arrback.png') }}">
+            </span>
+            {% if df is not none and not df.empty %}
+              <img src="{{ df["Image main"].iloc[0] }}">
+              <h2>{{ df["Dish Name"].iloc[0] }}</h2>
+              <h2>Ингридиенты:</h2>
+              <p>{{ df["Ingredients"].iloc[0] }}</p>
+              <h2>Рецепт:</h2>
+              <p>{{ split_text_to_lines(df["Recipe"].iloc[0]) | safe  }}</p>
+              <h2>Калории:</h2>
+              <p>{{ df["Calories"].iloc[0] }}</p>
+            {% endif %}
+
+        </div>
+    </div>
+      <script>
+      function showDishDescription(event) {
+        var target = event.target;
+
+        // Проверяем, содержит ли элемент класс "selected-dish-card"
+        if (target.classList.contains('selected-dish-card')) {
+          // Открываем модальное окно
+          var modal = document.getElementById('recipeModal');
+          modal.style.display = 'block';
+
+          window.onclick = function (event) {
+            if (event.target === modal) {
+              modal.style.display = 'none';
+            }
+          }
+
+          // Предотвращаем переход по ссылке
+          event.preventDefault();
+        }
+      }
+      function closeRecipeModal() {
+        var modal = document.getElementById('recipeModal');
+        modal.style.display = 'none';
+      }
+
+
+      </script>
     </body>
 </html>

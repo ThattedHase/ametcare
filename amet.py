@@ -75,12 +75,18 @@ def recommend_dish(meal_calories, dish_type, current_proteins, current_fats, cur
         allergens_list = [item.strip() for item in aller.split(';')]
         user_allergy_list = [item.strip() for item in allergy.split(';')]
 
-        preferences_list = [item.strip() for item in preference.split(',')]
-        user_prefer_list = [item.strip() for item in prefer.split(',')]
-        print(allergy, ",",aller, not(any(user.lower() in allergen.lower() for allergen in allergens_list for user in user_allergy_list)))
-        if max_grams > 10 and (dish_type in d_type) and not(any(user.lower() in allergen.lower() for allergen in allergens_list for user in user_allergy_list)) and any(user.lower() in preference.lower() for preference in preferences_list for user in user_prefer_list) :
-            # добавляем блюдо и граммовку в список подходящих блюд
-            suitable_dishes.append((dish, max_grams))
+        preferences_list = [item.strip() for item in preference.split(';')]
+        user_prefer_list = [item.strip() for item in prefer.split(';')]
+        print(type(allergy), ",",aller, not(any(user.lower() in allergen.lower() for allergen in allergens_list for user in user_allergy_list)))
+        if allergy != "": 
+            print("EMPTY ALLERGY")
+            if max_grams > 10 and (dish_type in d_type) and not(any(user.lower() in allergen.lower() for allergen in allergens_list for user in user_allergy_list)) and any(user.lower() in preference.lower() for preference in preferences_list for user in user_prefer_list) :
+                # добавляем блюдо и граммовку в список подходящих блюд
+                suitable_dishes.append((dish, max_grams))
+        else:
+            if max_grams > 10 and (dish_type in d_type) and any(user.lower() in preference.lower() for preference in preferences_list for user in user_prefer_list) :
+                # добавляем блюдо и граммовку в список подходящих блюд
+                suitable_dishes.append((dish, max_grams))
 
         
     
@@ -251,16 +257,16 @@ def recommend_dish(meal_calories, dish_type, current_proteins, current_fats, cur
         return None
 
 def meal_type(dish_type,user):
-    daily_calories, daily_carbs, daily_proteins, daily_fats=calculate_ptc(user)
+    daily_calories = user.daily_cal
     dish_type=str(dish_type).lower()
     if dish_type=='завтрак':
-        meal_calories=round(daily_calories*0.33*1.05)
+        meal_calories=round(daily_calories*0.33)
         return meal_calories, dish_type
     elif dish_type=='обед':
-        meal_calories=round(daily_calories*0.43*1.05)
+        meal_calories=round(daily_calories*0.43)
         return meal_calories, dish_type
     elif dish_type=='ужин':
-        meal_calories=round(daily_calories*0.24*1.05)
+        meal_calories=round(daily_calories*0.24)
         return meal_calories, dish_type
     else:
         return None

@@ -5,7 +5,12 @@ from flask_bcrypt import Bcrypt
 from flask_caching import Cache
 from datetime import timedelta
 from flask import Flask, render_template, request, jsonify, session
-from amet import recommend_dish
+from amet import recommend_dish,meal_type
+import pandas as pd
+from flask_login import logout_user
+
+
+
 
 
 app = Flask(__name__)
@@ -40,6 +45,15 @@ class User(db.Model, UserMixin):
     daily_water = db.Column(db.Float)
     preferences = db.relationship('Preference', backref='user', lazy=True)
     allergies = db.relationship('Allergy', backref='user', lazy=True)
+    
+class UserData(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(50))  # Замените на ваш тип данных
+    dish_data = db.Column(db.PickleType())  # Это для хранения DataFrame как бинарных данных
+
+    def __init__(self, user_id, dish_data):
+        self.user_id = user_id
+        self.dish_data = dish_data
 
 
 
@@ -229,10 +243,30 @@ def main():
     daily_water = int(user.daily_water/0.25)
     return render_template('main.html',user=user,daily_water=daily_water)
 
+def split_text_to_lines(text):
+    # Разделяем текст на строки
+    lines = text.split(';')
+
+    # Формируем строку с использованием символов переноса строки
+    result = "<br>".join(line.strip() for line in lines)
+
+    return result
+
+app.jinja_env.globals.update(split_text_to_lines=split_text_to_lines)
 
 @app.route('/calendar')
 def calendar():
-    return render_template('calendar.html')
+    user_data = UserData.query.filter_by(user_id=current_user.id).first()
+
+    if user_data:
+        df = user_data.dish_data
+        df1 = pd.DataFrame([df])
+        print(df1)
+        # Преобразование DataFrame df в HTML и передача его в шаблон
+        return render_template('calendar.html', df=df1)
+    else:
+        return render_template('calendar.html', df=None)
+    # Преобразование словаря в DataFrame
 @app.route('/products')
 def products():
     return render_template('products.html')
@@ -242,9 +276,10 @@ def etc():
 @app.route('/breakfast')
 def breakfast():    
     user = User.query.get(current_user.id)
-    table = recommend_dish(600,"завтрак",0,0,0,user)
+    meal_calories, dish_type= meal_type("завтрак",user)
+    table = recommend_dish(meal_calories,dish_type,0,0,0,user)
     l = len(table)
-    print(table["Dish Name"])
+    print(table["Recipe"])
     return render_template('breakfast.html',table=table, l = l)
 @app.route('/lunch')
 def lunch():
@@ -252,6 +287,38 @@ def lunch():
 @app.route('/dinner')
 def dinner():
     return render_template('dinner.html')
+@app.route('/process_selected_dish', methods=['POST'])
+def process_selected_dish():
+    data = request.get_json()
+    selected_dish_data = data.get('selectedDish')
+    
+    # Проверяем, существует ли запись для данного пользователя
+    user_data = UserData.query.filter_by(user_id=current_user.id).first()
+
+    if user_data:
+        # Обновляем существующую запись
+        user_data.dish_data = selected_dish_data
+    else:
+        # Создаем новую запись
+        user_data = UserData(user_id=current_user.id, dish_data=selected_dish_data)
+        db.session.add(user_data)
+
+    db.session.commit()
+    
+    return jsonify({'message': 'Selected dish received successfully!'})
+@app.route('/update_data', methods=['POST'])
+def update_data():
+    index = request.form.get('index')  # Получение данных из запроса
+    # Ваш код для обновления данных, основанный на индексе
+    # Отправьте обновленные данные в ответе
+    return jsonify({"status": "success", "message": "Data updated successfully"})
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
 
 
 
