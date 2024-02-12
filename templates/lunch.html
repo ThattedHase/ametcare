@@ -3,6 +3,8 @@
 <head>
   <title>Навигационная панель с иконками</title>
   <link type="text/css" href="{{ url_for('static', filename='css/styleMain.css') }}" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 <body>
   <div class = "maincontent">
@@ -26,11 +28,16 @@
     </div>
     <div id="allProducts">
       <div class = "scrollable-container">
-        <div class = "card1">
-          <p>Яичница</p>
-          <img src="{{ url_for('static', filename='img/plus.png') }}" >
-          <button class = "star" onclick="changeBackground()" type="button"></button> 
-        </div>
+        {% for t in range(l) %} 
+        <form id="selectedDishForm" method="post">
+          <div class="card1" onclick="showDishDescription('{{ t }}', event)">
+            <p>{{table["Dish Name"].iloc[t]}}</p>
+              <button onclick="sendSelectedDishToServer('{{ t }}')" type="button">
+                <img src="{{ url_for('static', filename='img/plus.png') }}">
+              </button>
+            </div>
+          </form>
+        {% endfor %}
       </div>
     </div>
 
@@ -38,6 +45,23 @@
         <h2>Избранные товары</h2>
         <!-- Здесь выводите избранные товары -->
     </div>
+    {% for t in range(l) %}
+    <div id="recipeModal{{ t }}" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRecipeModal('{{ t }}')">      
+              <img src="{{ url_for('static', filename='img/arrback.png') }}">
+            </span>
+            <img src="{{ table["Image main"].iloc[t] }}">
+            <h2>{{ table["Dish Name"].iloc[t] }}</h2>
+            <h2>Ингридиенты:</h2>
+            <p>{{ table["Ingredients"].iloc[t] }}</p>
+            <h2>Рецепт:</h2>
+            <p>{{ split_text_to_lines(table["Recipe"].iloc[t]) | safe }}</p>
+            <h2>Калории:</h2>
+            <p>{{ table["Calories"].iloc[t] }}</p>
+        </div>
+    </div>
+    {% endfor %}
 
 
 </div>
@@ -61,6 +85,67 @@
             var starButton = document.querySelector('.star');
             starButton.classList.toggle('clicked');
         }
+        var selectedDish = null;
+        var tableData = {{ table.to_dict(orient='records') | tojson | safe }};
+
+        function showDishDescription(index, event) {
+            var targetTagName = event.target.tagName.toLowerCase();
+
+            // Проверяем, что клик не был на кнопке или изображении внутри карточки
+            if (targetTagName !== 'button' && targetTagName !== 'img') {
+                // Остальной код для отображения модального окна
+                document.getElementById('recipeModal' + index).style.display = 'block';
+            }
+        }
+
+        function closeRecipeModal(index) {
+            // Остальной код для закрытия модального окна
+            document.getElementById('recipeModal' + index).style.display = 'none';
+        }
+        function sendSelectedDishToServer(index) {
+          selectedDish = tableData[index];
+
+          if (selectedDish) {
+              fetch('http://127.0.0.1:5000/process_selected_dish1', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ selectedDish }),
+              })
+              .then(response => response.json())
+              .then(data => {
+                  console.log('Success:', data);
+              })
+              .catch((error) => {
+                  console.error('Error:', error);
+              });
+          }
+      }
+        $(document).ready(function() {
+        $('#selectedDishForm').submit(function(event) {
+            event.preventDefault(); // Предотвращаем стандартное действие отправки формы
+
+            var formData = {}; // Создаем объект для хранения данных формы
+            // Собираем данные из формы (например, название рецепта)
+            // Пример: formData['dishName'] = $('#dishNameInput').val();
+
+            // Отправляем данные на сервер с помощью AJAX-запроса
+            $.ajax({
+                type: 'POST',
+                url: '/process_selected_dish1',
+                contentType: 'application/json',
+                data: JSON.stringify(formData), // Преобразуем данные в JSON-строку
+                success: function(response) {
+                    console.log(response.message); // Выводим сообщение об успешной отправке в консоль
+                    // Добавьте код для обновления данных на странице, если необходимо
+                },
+                error: function(error) {
+                    console.error('Ошибка отправки данных:', error);
+                }
+            });
+        });
+    });
 </script>
     </body>
 </html>

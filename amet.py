@@ -286,11 +286,11 @@ def show_dish(dish, grams, calories, recipe, ingred):
     print(f"Рецепт: {recipe}")
 # инициализируем текущие значения калорий и питательных веществ для пользователя
 def update_nutrients(current_calories,current_proteins,current_fats,current_carbs, table_df, dish):
-    current_calories += table_df.loc[table_df["Dish Name"] == dish, "Calories"].values
-    current_proteins += table_df.loc[table_df["Dish Name"] == dish, "Proteins"].values
-    current_fats += table_df.loc[table_df["Dish Name"] == dish, "Fats"].values
-    current_carbs += table_df.loc[table_df["Dish Name"] == dish, "Carbs"].values
-    return current_calories,current_proteins,current_fats,current_carbs
+    current_calories = table_df.loc[table_df["Dish Name"] == dish, "Calories"].values
+    current_proteins = table_df.loc[table_df["Dish Name"] == dish, "Proteins"].values
+    current_fats = table_df.loc[table_df["Dish Name"] == dish, "Fats"].values
+    current_carbs = table_df.loc[table_df["Dish Name"] == dish, "Carbs"].values
+    return current_proteins,current_fats,current_carbs
 
 def ratio_nutrients(user,current_calories,current_proteins,current_fats,current_carbs):
     daily_carbs, daily_proteins, daily_fats=calculate_ptc(user)

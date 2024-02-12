@@ -100,7 +100,7 @@ button[type="button"]
 .card
 {
   width: 100%;
-  height: 50%;
+  height: 60%;
   background: rgb(227, 227, 227);
   padding-left: 58px;
   font-family: 'Nunito';
@@ -109,7 +109,6 @@ button[type="button"]
   color: rgb(43,198,160);
   display: flex;
   justify-content: center;
-  text-align: center;
   flex-wrap: wrap;
   align-content: center;
   margin: 30px;
@@ -267,7 +266,7 @@ button[type="button"]
 
 .glass
 {
-  background-image: url('/static/img/glass1.png');
+  background-image: url('/static/img/glass4.png');
   background-size: cover;
   width: 80px;
   height: 100px;
@@ -300,7 +299,10 @@ button[type="button"]
   box-sizing: border-box;
   color:rgb(89, 197, 235);
 }
-.selected-dish-card {
+.selected-dish-card1,
+.selected-dish-card2,
+.selected-dish-card3
+ {
   background-color: rgb(89, 197, 235);
   font-family: 'Nunito';
   font-weight: 500;
@@ -311,4 +313,14 @@ button[type="button"]
   border-radius: 60px; /* Задайте размер для выбранного блюда */
   padding: 30px;
   margin-bottom: 30px;
+}
+.profile
+{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Nunito';
+  font-weight: 500;
+  font-size: 50px;
+  color:rgb(89, 197, 235);
+  margin-left: 50px;
 }

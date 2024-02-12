@@ -131,7 +131,7 @@
             // Отправляем данные на сервер с помощью AJAX-запроса
             $.ajax({
                 type: 'POST',
-                url: '/process_selected_dish1',
+                url: '/process_selected_dish',
                 contentType: 'application/json',
                 data: JSON.stringify(formData), // Преобразуем данные в JSON-строку
                 success: function(response) {

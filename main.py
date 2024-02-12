@@ -45,8 +45,30 @@ class User(db.Model, UserMixin):
     daily_water = db.Column(db.Float)
     preferences = db.relationship('Preference', backref='user', lazy=True)
     allergies = db.relationship('Allergy', backref='user', lazy=True)
+    glasses = db.relationship('WaterGlass', backref='user', lazy=True)
+
+class WaterGlass(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    index = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-class UserData(db.Model):
+class UserData1(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(50))  # Замените на ваш тип данных
+    dish_data = db.Column(db.PickleType())  # Это для хранения DataFrame как бинарных данных
+
+    def __init__(self, user_id, dish_data):
+        self.user_id = user_id
+        self.dish_data = dish_data
+class UserData2(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(50))  # Замените на ваш тип данных
+    dish_data = db.Column(db.PickleType())  # Это для хранения DataFrame как бинарных данных
+
+    def __init__(self, user_id, dish_data):
+        self.user_id = user_id
+        self.dish_data = dish_data
+class UserData3(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(50))  # Замените на ваш тип данных
     dish_data = db.Column(db.PickleType())  # Это для хранения DataFrame как бинарных данных
@@ -241,7 +263,8 @@ def userinfo():
 def main():
     user = User.query.get(current_user.id)
     daily_water = int(user.daily_water/0.25)
-    return render_template('main.html',user=user,daily_water=daily_water)
+    daily_water1 = float(user.daily_water)
+    return render_template('main.html',user=user,daily_water=daily_water,daily_water1=daily_water1)
 
 def split_text_to_lines(text):
     # Разделяем текст на строки
@@ -254,53 +277,144 @@ def split_text_to_lines(text):
 
 app.jinja_env.globals.update(split_text_to_lines=split_text_to_lines)
 
-@app.route('/calendar')
+@app.route('/calendar', methods=['GET', 'POST'])
 def calendar():
-    user_data = UserData.query.filter_by(user_id=current_user.id).first()
+    if request.method == 'POST':
+        data = request.get_json()
+        selected_dish_data = data.get('selectedDish')
+        meal_type = data.get('mealType')  # Assuming mealType is sent in the AJAX request
 
-    if user_data:
-        df = user_data.dish_data
-        df1 = pd.DataFrame([df])
-        print(df1)
-        # Преобразование DataFrame df в HTML и передача его в шаблон
-        return render_template('calendar.html', df=df1)
-    else:
-        return render_template('calendar.html', df=None)
-    # Преобразование словаря в DataFrame
+        if meal_type == 'breakfast':
+            user_data = UserData1.query.filter_by(user_id=current_user.id).first()
+        elif meal_type == 'lunch':
+            user_data = UserData2.query.filter_by(user_id=current_user.id).first()
+        elif meal_type == 'dinner':
+            user_data = UserData3.query.filter_by(user_id=current_user.id).first()
+        else:
+            return jsonify({'error': 'Invalid meal type'})
+
+        if user_data:
+            if meal_type == 'lunch':
+                user_data.dish_data = selected_dish_data
+            elif meal_type == 'dinner':
+                user_data.dish_data = selected_dish_data
+            elif meal_type == 'breakfast':
+                user_data.dish_data = selected_dish_data
+        else:
+            if meal_type == 'breakfast':
+                user_data = UserData1(user_id=current_user.id)
+            elif meal_type == 'lunch':
+                user_data = UserData2(user_id=current_user.id)
+            elif meal_type == 'dinner':
+                user_data = UserData3(user_id=current_user.id)
+
+            db.session.add(user_data)
+
+        db.session.commit()
+
+        return jsonify({'message': 'Selected dish received successfully!'})
+
+    user_data_breakfast = UserData1.query.filter_by(user_id=current_user.id).first()
+    user_data_lunch = UserData2.query.filter_by(user_id=current_user.id).first()
+    user_data_dinner = UserData3.query.filter_by(user_id=current_user.id).first()
+
+    df_breakfast = user_data_breakfast.dish_data if user_data_breakfast else None
+    df_breakfast = pd.DataFrame([df_breakfast]) if df_breakfast else None
+
+    df_lunch = user_data_lunch.dish_data if user_data_lunch else None
+    df_lunch = pd.DataFrame([df_lunch]) if df_lunch else None
+
+    df_dinner = user_data_dinner.dish_data if user_data_dinner else None
+    df_dinner = pd.DataFrame([df_dinner]) if df_dinner else None
+
+    return render_template('calendar.html', df_breakfast=df_breakfast, df_lunch=df_lunch, df_dinner=df_dinner)
+
+
 @app.route('/products')
 def products():
     return render_template('products.html')
 @app.route('/etc')
 def etc():
-    return render_template('etc.html')
+    user = User.query.get(current_user.id)
+    return render_template('etc.html',user=user)
 @app.route('/breakfast')
 def breakfast():    
     user = User.query.get(current_user.id)
     meal_calories, dish_type= meal_type("завтрак",user)
     table = recommend_dish(meal_calories,dish_type,0,0,0,user)
+    print(table)
     l = len(table)
-    print(table["Recipe"])
     return render_template('breakfast.html',table=table, l = l)
 @app.route('/lunch')
 def lunch():
-    return render_template('lunch.html')
+    user = User.query.get(current_user.id)
+    meal_calories, dish_type= meal_type("обед",user)
+    table = recommend_dish(meal_calories,dish_type,0,0,0,user)
+    l = len(table)
+    print(table["Calories"])
+    return render_template('lunch.html',table=table, l = l)
 @app.route('/dinner')
 def dinner():
-    return render_template('dinner.html')
+    user = User.query.get(current_user.id)
+    meal_calories, dish_type= meal_type("ужин",user)
+    table = recommend_dish(meal_calories,dish_type,0,0,0,user)
+    l = len(table)
+    print(table["Calories"])
+    return render_template('dinner.html',table=table, l = l)
 @app.route('/process_selected_dish', methods=['POST'])
 def process_selected_dish():
     data = request.get_json()
     selected_dish_data = data.get('selectedDish')
     
     # Проверяем, существует ли запись для данного пользователя
-    user_data = UserData.query.filter_by(user_id=current_user.id).first()
+    user_data = UserData1.query.filter_by(user_id=current_user.id).first()
 
     if user_data:
         # Обновляем существующую запись
         user_data.dish_data = selected_dish_data
     else:
         # Создаем новую запись
-        user_data = UserData(user_id=current_user.id, dish_data=selected_dish_data)
+        user_data = UserData1(user_id=current_user.id, dish_data=selected_dish_data)
+        db.session.add(user_data)
+
+    db.session.commit()
+    
+    return jsonify({'message': 'Selected dish received successfully!'})
+
+@app.route('/process_selected_dish1', methods=['POST'])
+def process_selected_dish1():
+    data = request.get_json()
+    selected_dish_data = data.get('selectedDish')
+    
+    # Проверяем, существует ли запись для данного пользователя
+    user_data = UserData2.query.filter_by(user_id=current_user.id).first()
+
+    if user_data:
+        # Обновляем существующую запись
+        user_data.dish_data = selected_dish_data
+    else:
+        # Создаем новую запись
+        user_data = UserData2(user_id=current_user.id, dish_data=selected_dish_data)
+        db.session.add(user_data)
+
+    db.session.commit()
+    
+    return jsonify({'message': 'Selected dish received successfully!'})
+
+@app.route('/process_selected_dish2', methods=['POST'])
+def process_selected_dish2():
+    data = request.get_json()
+    selected_dish_data = data.get('selectedDish')
+    
+    # Проверяем, существует ли запись для данного пользователя
+    user_data = UserData3.query.filter_by(user_id=current_user.id).first()
+
+    if user_data:
+        # Обновляем существующую запись
+        user_data.dish_data = selected_dish_data
+    else:
+        # Создаем новую запись
+        user_data = UserData2(user_id=current_user.id, dish_data=selected_dish_data)
         db.session.add(user_data)
 
     db.session.commit()
@@ -319,7 +433,24 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+from flask import request, jsonify
 
+@app.route('/update_water_glass', methods=['POST'])
+@login_required
+def update_water_glass():
+    data = request.get_json()
+    glass_id = data.get('glassId')
+
+    # Найдите соответствующий объект WaterGlass в базе данных и обновите его
+    glass = WaterGlass.query.filter_by(id=glass_id, user_id=current_user.id).first()
+
+    if glass and glass.index < 6:
+        glass.index += 1
+        db.session.commit()
+
+        return jsonify({'message': 'Water glass updated successfully!'})
+    else:
+        return jsonify({'error': 'Unable to update water glass.'}), 400
 
 
 if __name__ == '__main__':

@@ -2,10 +2,10 @@
 <html>
 <head>
   <title>Навигационная панель с иконками</title>
-  <link type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+  <link type="text/css" href="{{ url_for('static', filename='css/styleMain.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div class="content">
+  <div class="maincontent">
     <div class="title">Прочее</div>
   </div>
 
@@ -17,6 +17,17 @@
       <input type="image" id = "nav_bat" src="{{ url_for('static', filename='img/etc_act.png') }}" onclick="window.location.href='/etc'">
     </div>
   </footer>
+  <a href="{{ url_for('logout') }}" style="font-family: Nunito;font-size: 50px;color: rgb(89, 197, 235);margin: 60px;">Выйти из аккаунта</a>
+  <div class = "profile">
+    <p>Имя: {{user.username}}</p>
+    <p>Пол: {{user.gender}}</p>
+    <p>Вес: {{user.weight}}</p>
+    <p>Рост: {{user.height}}</p>
+    
+
+
+
+  </div>
 
 </body>
 </html>

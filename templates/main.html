@@ -4,7 +4,6 @@
   <title>Навигационная панель с иконками</title>
   <link type="text/css" href="{{ url_for('static', filename='css/styleMain.css') }}" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="/static/js/glass_scripts.js"></script>
 </head>
 <body>
   <div class="maincontent">
@@ -24,9 +23,10 @@
     </div>
     <div class ="dark_blue">
       Ваша норма воды на сегодня: 
-      {% for _ in range(daily_water) %}     
-        <button class = "glass"></button>
+      {% for i in range(daily_water) %}     
+        <div class="glass" glass-id="{{ i }}"></div>
       {% endfor %}
+      {{daily_water1}} литра
     </div>
   </div>
   </body>
