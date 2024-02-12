@@ -259,6 +259,8 @@ def userinfo():
         return redirect(url_for('indpref'))
     
     return render_template('userinfo.html')
+
+@login_required
 @app.route('/main', methods=['GET'])
 def main():
     user = User.query.get(current_user.id)
@@ -277,6 +279,7 @@ def split_text_to_lines(text):
 
 app.jinja_env.globals.update(split_text_to_lines=split_text_to_lines)
 
+@login_required
 @app.route('/calendar', methods=['GET', 'POST'])
 def calendar():
     if request.method == 'POST':
@@ -329,14 +332,17 @@ def calendar():
 
     return render_template('calendar.html', df_breakfast=df_breakfast, df_lunch=df_lunch, df_dinner=df_dinner)
 
-
+@login_required
 @app.route('/products')
 def products():
     return render_template('products.html')
+@login_required
 @app.route('/etc')
 def etc():
     user = User.query.get(current_user.id)
     return render_template('etc.html',user=user)
+
+@login_required
 @app.route('/breakfast')
 def breakfast():    
     user = User.query.get(current_user.id)
@@ -345,6 +351,8 @@ def breakfast():
     print(table)
     l = len(table)
     return render_template('breakfast.html',table=table, l = l)
+
+@login_required
 @app.route('/lunch')
 def lunch():
     user = User.query.get(current_user.id)
@@ -353,6 +361,8 @@ def lunch():
     l = len(table)
     print(table["Calories"])
     return render_template('lunch.html',table=table, l = l)
+
+@login_required
 @app.route('/dinner')
 def dinner():
     user = User.query.get(current_user.id)
@@ -361,6 +371,7 @@ def dinner():
     l = len(table)
     print(table["Calories"])
     return render_template('dinner.html',table=table, l = l)
+
 @app.route('/process_selected_dish', methods=['POST'])
 def process_selected_dish():
     data = request.get_json()
@@ -420,6 +431,7 @@ def process_selected_dish2():
     db.session.commit()
     
     return jsonify({'message': 'Selected dish received successfully!'})
+
 @app.route('/update_data', methods=['POST'])
 def update_data():
     index = request.form.get('index')  # Получение данных из запроса
