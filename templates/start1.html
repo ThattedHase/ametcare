@@ -3,7 +3,6 @@
 <head>
   <title>AmetCare</title>
   <link type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
   <div class="container">
@@ -11,4 +10,13 @@
     <p class="center-text">Виртуальная забота о вашем питании</p>
 </div>
 </body>
+<script>
+  function redirectToSecondPage() {
+    setTimeout(function() {
+        window.location.href = "/start2";
+    }, 2000); 
+}
+window.onload = redirectToSecondPage;
+
+</script>
 </html>
