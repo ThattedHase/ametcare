@@ -1,7 +1,5 @@
 import pandas as pd
 import random
-import math
-import sqlite3
 
 
 df = pd.read_csv("new_table.csv")
