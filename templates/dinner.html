@@ -8,17 +8,17 @@
 </head>
 <body>
   <div class = "maincontent">
-    <a href="http://127.0.0.1:5000/calendar" class="back">
+    <a href="/calendar" class="back">
       <img src="{{ url_for('static', filename='img/arrback.png') }}">
     </a> 
     <div class="title subtitle">Ужины</div>
   </div>
   <footer class="navigation">
     <div class="buts">
-      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/products.png') }}" onclick="window.location.href='http://127.0.0.1:5000/products'">
-      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/main.png') }}" onclick="window.location.href='http://127.0.0.1:5000/main'">
-      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/calendar_act.png') }}" onclick="window.location.href='http://127.0.0.1:5000/calendar'">
-      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='http://127.0.0.1:5000/etc'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/products.png') }}" onclick="window.location.href='/products'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/main.png') }}" onclick="window.location.href='/main'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/calendar_act.png') }}" onclick="window.location.href='/calendar'">
+      <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='/etc'">
     </div>
   </footer>
   <div >
@@ -106,7 +106,7 @@
           selectedDish = tableData[index];
 
           if (selectedDish) {
-              fetch('http://127.0.0.1:5000/process_selected_dish2', {
+              fetch('/process_selected_dish2', {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json',

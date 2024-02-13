@@ -10,28 +10,28 @@
       </div>
       <footer class="navigation">
         <div class="buts">
-          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/products.png') }}" onclick="window.location.href='http://127.0.0.1:5000/products'">
-          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/main.png') }}" onclick="window.location.href='http://127.0.0.1:5000/main'">
-          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/calendar_act.png') }}" onclick="window.location.href='http://127.0.0.1:5000/calendar'">
-          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='http://127.0.0.1:5000/etc'">
+          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/products.png') }}" onclick="window.location.href='/products'">
+          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/main.png') }}" onclick="window.location.href='/main'">
+          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/calendar_act.png') }}" onclick="window.location.href='/calendar'">
+          <input type="image" id = "nav_but" src="{{ url_for('static', filename='img/etc.png') }}" onclick="window.location.href='/etc'">
         </div>
       </footer>
       <div class="cardStack">
-        <a id="breakfastLink" class="card" href="http://127.0.0.1:5000/breakfast" onclick="showDishDescription1(event)">
+        <a id="breakfastLink" class="card" href="/breakfast" onclick="showDishDescription1(event)">
           {% if df_breakfast is not none and not df_breakfast.empty %}
             <div class="selected-dish-card1">{{ df_breakfast["Dish Name"].iloc[0] }}</div>
           {% else %}
             Нажмите, чтобы выбрать завтрак
           {% endif %}
         </a>
-        <a id="lunchLink" class="card" href="http://127.0.0.1:5000/lunch" onclick="showDishDescription2(event)">
+        <a id="lunchLink" class="card" href="/lunch" onclick="showDishDescription2(event)">
           {% if df_lunch is not none and not df_lunch.empty %}
               <div class="selected-dish-card2">{{ df_lunch["Dish Name"].iloc[0] }}</div>
           {% else %}
               Нажмите, чтобы выбрать обед
           {% endif %}
         </a>
-        <a id="dinnerLink" class="card" href="http://127.0.0.1:5000/dinner" onclick="showDishDescription3(event)">
+        <a id="dinnerLink" class="card" href="/dinner" onclick="showDishDescription3(event)">
           {% if df_dinner is not none and not df_dinner.empty %}
               <div class="selected-dish-card3">{{ df_dinner["Dish Name"].iloc[0] }}</div>
           {% else %}
