@@ -248,7 +248,7 @@ def userinfo():
         current_user.age = int(request.form.get('age'))
         current_user.goal = request.form.get('goal')
         current_user.phy_act = float(request.form.get('phy_act'))
-        current_user.daily_cal = calculate_daily_cal(str(current_user.gender), current_user.weight,current_user.height,current_user.age,current_user.phy_act, current_user.goal)
+        current_user.daily_cal = round(calculate_daily_cal(str(current_user.gender), current_user.weight,current_user.height,current_user.age,current_user.phy_act, current_user.goal),2)
         current_user.daily_carbs, current_user.daily_proteins, current_user.daily_fats = calculate_ptc(current_user.goal,current_user.daily_cal)
         current_user.daily_water = calculate_daily_water(str(current_user.gender),current_user.weight)
         db.session.commit()
@@ -265,7 +265,7 @@ def userinfo():
 def main():
     user = User.query.get(current_user.id)
     daily_water = int(user.daily_water/0.25)
-    daily_water1 = float(user.daily_water)
+    daily_water1 = round(float(user.daily_water),2)
     return render_template('main.html',user=user,daily_water=daily_water,daily_water1=daily_water1)
 
 def split_text_to_lines(text):
@@ -425,7 +425,7 @@ def process_selected_dish2():
         user_data.dish_data = selected_dish_data
     else:
         # Создаем новую запись
-        user_data = UserData2(user_id=current_user.id, dish_data=selected_dish_data)
+        user_data = UserData3(user_id=current_user.id, dish_data=selected_dish_data)
         db.session.add(user_data)
 
     db.session.commit()
