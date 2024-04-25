@@ -23,10 +23,8 @@
     </div>
     <div class ="dark_blue">
       Ваша норма воды на сегодня: 
-      {% for i in range(daily_water) %}     
-        <div class="glass" glass-id="{{ i }}"></div>
-      {% endfor %}
-      {{daily_water1}} литра
+      <div class="glass" glass-id="{{ i }}"></div>
+      x{{daily_water}} = {{daily_water1}} литра
     </div>
   </div>
   </body>
